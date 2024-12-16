@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Optional, List, Union
 from pydantic import BaseModel
 from solders.pubkey import Pubkey
@@ -45,3 +46,11 @@ class LuloAccountDetailsResponse(BaseModel):
     interest_earned: float
     realtime_apy: float
     settings: LuloAccountSettings
+
+@dataclass
+class NetworkPerformanceMetrics:
+    """Data structure for Solana network performance metrics."""
+    transactions_per_second: float
+    total_transactions: int
+    sampling_period_seconds: int
+    current_slot: int
