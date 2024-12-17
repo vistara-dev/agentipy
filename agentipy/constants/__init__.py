@@ -12,13 +12,11 @@ TOKENS = {
     "BONK": Pubkey.from_string("DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"),
 }
 
-
-
-# Default configuration options
 DEFAULT_OPTIONS = {
     "SLIPPAGE_BPS": 300,  # Default slippage tolerance in basis points (300 = 3%)
     "TOKEN_DECIMALS": 9,  # Default number of decimals for new tokens
 }
 
-# Jupiter API URL
 JUP_API = "https://quote-api.jup.ag/v6"
+
+LAMPORTS_PER_SOL = 1_000_000_000
