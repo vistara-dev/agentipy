@@ -4,10 +4,10 @@ import aiohttp
 from solana.rpc.commitment import Confirmed
 from solders.pubkey import Pubkey  # type: ignore
 from solders.transaction import VersionedTransaction  # type: ignore
+LAMPORTS_PER_SOL
 
 from agentipy.agent import SolanaAgentKit
-from agentipy.constants import (DEFAULT_OPTIONS, JUP_API, LAMPORTS_PER_SOL,
-                                TOKENS)
+from agentipy.constants import DEFAULT_OPTIONS, JUP_API, LAMPORTS_PER_SOL, TOKENS
 
 
 async def trade(
