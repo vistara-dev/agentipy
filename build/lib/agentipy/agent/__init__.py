@@ -36,10 +36,6 @@ class SolanaAgentKit:
     async def get_balance(self, token_address: Pubkey = None):
         from agentipy.tools import get_balance
         return await get_balance(self, token_address)
-    
-    async def fetch_price( token_id: str):
-        from agentipy.tools import fetch_price
-        return await fetch_price(token_id)
 
     async def transfer(self, to: Pubkey, amount: int, mint: Pubkey = None):
         from agentipy.tools import transfer

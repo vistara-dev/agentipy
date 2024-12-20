@@ -2,9 +2,10 @@ from typing import Dict, Optional
 
 from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Confirmed
-from solana.rpc.types import TokenAccountOpts
+
 from solders.pubkey import Pubkey  # type: ignore
-from solders.rpc.responses import GetTokenAccountsByOwnerResp  # type: ignore
+
+
 
 from agentipy.agent import SolanaAgentKit
 from agentipy.constants import LAMPORTS_PER_SOL
