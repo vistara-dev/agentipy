@@ -1,6 +1,6 @@
 # Solana Agent Kit
 
-A powerful toolkit for interacting with the Solana blockchain, providing easy-to-use functions for token operations, and trading. Now integrated with LangChain for enhanced functionality.
+A powerful toolkit for interacting with the Solana blockchain, providing easy-to-use functions for token operations, trading, and more. Now integrated with LangChain for enhanced functionality.
 
 ## Features
 
@@ -9,6 +9,8 @@ A powerful toolkit for interacting with the Solana blockchain, providing easy-to
   - Transfer SOL and SPL tokens
   - Check token balances
   - Stake SOL
+  - Deploy new tokens
+  - Request faucet funds
 
 - 💱 Trading
 
@@ -21,8 +23,26 @@ A powerful toolkit for interacting with the Solana blockchain, providing easy-to
   - Lend idle assets to earn interest with Lulo
 
 - 🔗 LangChain Integration
+
   - Utilize LangChain tools for enhanced blockchain interactions
   - Access a suite of tools for balance checks, transfers, token deployments, and more
+
+- 📈 Performance Tracking
+
+  - Fetch current transactions per second (TPS) on the Solana network
+
+- 📊 Token Data
+
+  - Get token data by ticker
+  - Get token data by address
+
+- 🚀 Pump & Fun Tokens
+
+  - Launch Pump & Fun tokens with customizable options
+
+- 🏦 Meteora DLMM Pools
+
+  - Create Meteora DLMM pools with various configurations
 
 ## Installation
 
@@ -139,6 +159,141 @@ import asyncio
 asyncio.run(main())
 ```
 
+### Request Faucet Funds
+
+```python
+from agentipy import SolanaAgentKit
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    response = await agent.request_faucet_funds()
+    print(response)
+
+import asyncio
+asyncio.run(main())
+```
+
+### Fetch Current TPS
+
+```python
+from agentipy import SolanaAgentKit
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    tps = await agent.get_tps()
+    print(f"Current TPS: {tps}")
+
+import asyncio
+asyncio.run(main())
+```
+
+### Get Token Data by Ticker
+
+```python
+from agentipy import SolanaAgentKit
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    token_data = await agent.get_token_data_by_ticker("SOL")
+    print(token_data)
+
+import asyncio
+asyncio.run(main())
+```
+
+### Get Token Data by Address
+
+```python
+from agentipy import SolanaAgentKit
+from solders.pubkey import Pubkey
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    token_data = await agent.get_token_data_by_address("your-token-mint-address")
+    print(token_data)
+
+import asyncio
+asyncio.run(main())
+```
+
+### Launch Pump Fun Token
+
+```python
+from agentipy import SolanaAgentKit
+from agentipy.types import PumpfunTokenOptions
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    options = PumpfunTokenOptions(
+        # Add your options here
+    )
+
+    response = await agent.launch_pump_fun_token(
+        token_name="MyToken",
+        token_ticker="MTK",
+        description="This is a fun token",
+        image_url="https://example.com/image.png",
+        options=options
+    )
+    print(response)
+```
+
+### Create Meteora DLMM Pool
+
+```python
+from agentipy import SolanaAgentKit
+from solders.pubkey import Pubkey
+from agentipy.utils.meteora_dlmm.types import ActivationType
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    response = await agent.create_meteora_dlmm_pool(
+        bin_step=1,
+        token_a_mint=Pubkey.from_string("token-a-mint"),
+        token_b_mint=Pubkey.from_string("token-b-mint"),
+        initial_price=1.0,
+        price_rounding_up=True,
+        fee_bps=30,
+        activation_type=ActivationType.Timestamp,
+        has_alpha_vault=True,
+        activation_point=None
+    )
+    print(response)
+
+import asyncio
+asyncio.run(main())
+```
+
 ## API Reference
 
 ### Core Functions
@@ -162,6 +317,38 @@ Lend idle assets to earn interest with Lulo.
 #### `stake(agent, amount)`
 
 Stake SOL with Jupiter to earn rewards.
+
+#### `request_faucet_funds(agent)`
+
+Request faucet funds for testing purposes.
+
+#### `deploy_token(agent, decimals)`
+
+Deploy a new token with specified decimals.
+
+#### `fetch_price(agent, token_id)`
+
+Fetch the price of a token.
+
+#### `get_tps(agent)`
+
+Fetch the current transactions per second (TPS) on the Solana network.
+
+#### `get_token_data_by_ticker(agent, ticker)`
+
+Get token data by ticker.
+
+#### `get_token_data_by_address(agent, mint)`
+
+Get token data by address.
+
+#### `launch_pump_fun_token(agent, token_name, token_ticker, description, image_url, options)`
+
+Launch a Pump & Fun token with customizable options.
+
+#### `create_meteora_dlmm_pool(agent, bin_step, token_a_mint, token_b_mint, initial_price, price_rounding_up, fee_bps, activation_type, has_alpha_vault, activation_point)`
+
+Create a Meteora DLMM pool with various configurations.
 
 ## Dependencies
 
