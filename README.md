@@ -17,6 +17,7 @@ A powerful toolkit for interacting with the Solana blockchain, providing easy-to
   - Integrated Jupiter Exchange support
   - Token swaps with customizable slippage
   - Direct routing options
+  - Buy and sell tokens with Raydium liquidity
 
 - 🏦 Yield Farming
 
@@ -294,6 +295,54 @@ import asyncio
 asyncio.run(main())
 ```
 
+### Buy Tokens with Raydium
+
+```python
+from agentipy import SolanaAgentKit
+from solders.pubkey import Pubkey
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    confirmed = await agent.buy_with_raydium(
+        pair_address=Pubkey.from_string("target-pair-address"),  # The pair you want to buy from
+        sol_in=1,  # Amount of SOL or input token to spend
+        slippage=300  # Maximum slippage in basis points (3% here)
+    )
+    print(f"Transaction confirmed: {confirmed}")
+
+import asyncio
+asyncio.run(main())
+```
+
+### Sell Tokens with Raydium
+
+```python
+from agentipy import SolanaAgentKit
+from solders.pubkey import Pubkey
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    confirmed = await agent.sell_with_raydium(
+        input_mint=Pubkey.from_string("source-token-mint"),  # The token you want to sell
+        percentage=100,
+        slippage_bps=250  # Maximum slippage in basis points (2.5% here)
+    )
+    print(f"Transaction confirmed: {confirmed}")
+
+import asyncio
+asyncio.run(main())
+```
+
 ## API Reference
 
 ### Core Functions
@@ -349,6 +398,14 @@ Launch a Pump & Fun token with customizable options.
 #### `create_meteora_dlmm_pool(agent, bin_step, token_a_mint, token_b_mint, initial_price, price_rounding_up, fee_bps, activation_type, has_alpha_vault, activation_point)`
 
 Create a Meteora DLMM pool with various configurations.
+
+#### `buy_with_raydium(agent, pair_address, sol_in, slippage)`
+
+Buy tokens from Raydium liquidity pools.
+
+#### `sell_with_raydium(agent, pair_address, percentage, slippage)`
+
+Sell tokens using Raydium liquidity pools.
 
 ## Dependencies
 
