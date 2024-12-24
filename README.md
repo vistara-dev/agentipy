@@ -11,6 +11,8 @@ A powerful toolkit for interacting with the Solana blockchain, providing easy-to
   - Stake SOL
   - Deploy new tokens
   - Request faucet funds
+  - Burn and close token accounts
+  - Batch burn and close token accounts
 
 - 💱 Trading
 
@@ -343,6 +345,45 @@ import asyncio
 asyncio.run(main())
 ```
 
+### Burn and Close Token Account
+
+```python
+from agentipy import SolanaAgentKit
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    response = await agent.burn_and_close_accounts("token-account-address")
+    print("Account burned and closed:", response)
+
+import asyncio
+asyncio.run(main())
+```
+
+### Batch burn and Close Token Account
+
+```python
+from agentipy import SolanaAgentKit
+
+async def main():
+    agent = SolanaAgentKit(
+        "your-wallet-private-key-as-base58",
+        "https://api.mainnet-beta.solana.com",
+        "your-openai-api-key"
+    )
+
+    token_accounts = ["token-account-address-1", "token-account-address-2"]
+    responses = await agent.multiple_burn_and_close_accounts(token_accounts)
+    print("Accounts burned and closed:", responses)
+
+import asyncio
+asyncio.run(main())
+```
+
 ## API Reference
 
 ### Core Functions
@@ -406,6 +447,14 @@ Buy tokens from Raydium liquidity pools.
 #### `sell_with_raydium(agent, pair_address, percentage, slippage)`
 
 Sell tokens using Raydium liquidity pools.
+
+#### `burn_and_close_accounts(agent, token_account)`
+
+Burns and closes token account.
+
+#### `multiple_burn_and_close_accounts(agent, token_accounts)`
+
+Burns and closes multiple token accounts.
 
 ## Dependencies
 
