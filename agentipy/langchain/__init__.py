@@ -1610,6 +1610,100 @@ class SolanaHeliusDeleteWebhookTool(BaseTool):
             "This tool only supports async execution via _arun. Please use the async interface."
         )
 
+class SolanaFetchTokenReportSummaryTool(BaseTool):
+    name: str = "solana_fetch_token_report_summary"
+    description: str = """
+    Fetch a summary report for a specific token.
+
+    Input: A JSON string with:
+    {
+        "mint": "Mint address of the token"
+    }
+
+    Output:
+    {
+        "status": "success",
+        "data": <TokenCheck object as a dictionary>
+    }
+    """
+    solana_kit: SolanaAgentKit
+
+    async def _arun(self, input: str):
+        """
+        Asynchronous implementation of the tool.
+        """
+        try:
+            data = json.loads(input)
+            mint = data.get("mint")
+            if not mint:
+                raise ValueError("Missing 'mint' in input.")
+            
+            result = self.solana_kit.fetch_token_report_summary(mint)
+            return {
+                "status": "success",
+                "data": result.dict(),
+            }
+        except Exception as e:
+            return {
+                "status": "error",
+                "message": str(e),
+            }
+
+    def _run(self, input: str):
+        """
+        Synchronous version of the tool, not implemented for async-only tools.
+        """
+        raise NotImplementedError(
+            "This tool only supports async execution via _arun. Please use the async interface."
+        )
+    
+class SolanaFetchTokenDetailedReportTool(BaseTool):
+    name: str = "solana_fetch_token_detailed_report"
+    description: str = """
+    Fetch a detailed report for a specific token.
+
+    Input: A JSON string with:
+    {
+        "mint": "Mint address of the token"
+    }
+
+    Output:
+    {
+        "status": "success",
+        "data": <TokenCheck object as a dictionary>
+    }
+    """
+    solana_kit: SolanaAgentKit
+
+    async def _arun(self, input: str):
+        """
+        Asynchronous implementation of the tool.
+        """
+        try:
+            data = json.loads(input)
+            mint = data.get("mint")
+            if not mint:
+                raise ValueError("Missing 'mint' in input.")
+            
+            result = self.solana_kit.fetch_token_detailed_report(mint)
+            return {
+                "status": "success",
+                "data": result.dict(),
+            }
+        except Exception as e:
+            return {
+                "status": "error",
+                "message": str(e),
+            }
+
+    def _run(self, input: str):
+        """
+        Synchronous version of the tool, not implemented for async-only tools.
+        """
+        raise NotImplementedError(
+            "This tool only supports async execution via _arun. Please use the async interface."
+        )
+    
 def create_solana_tools(solana_kit: SolanaAgentKit):
     return [
         SolanaBalanceTool(solana_kit=solana_kit),
@@ -1631,6 +1725,23 @@ def create_solana_tools(solana_kit: SolanaAgentKit):
         SolanaCreateGibworkTaskTool(solana_kit=solana_kit),
         SolanaSellUsingMoonshotTool(solana_kit=solana_kit),
         SolanaBuyUsingMoonshotTool(solana_kit=solana_kit),
-        SolanaPythGetPriceTool(solana_kit=solana_kit)
+        SolanaPythGetPriceTool(solana_kit=solana_kit),
+        SolanaHeliusGetBalancesTool(solana_kit=solana_kit),
+        SolanaHeliusGetAddressNameTool(solana_kit=solana_kit),
+        SolanaHeliusGetNftEventsTool(solana_kit=solana_kit),
+        SolanaHeliusGetMintlistsTool(solana_kit=solana_kit),
+        SolanaHeliusGetNFTFingerprintTool(solana_kit=solana_kit),
+        SolanaHeliusGetActiveListingsTool(solana_kit=solana_kit),
+        SolanaHeliusGetNFTMetadataTool(solana_kit=solana_kit),
+        SolanaHeliusGetRawTransactionsTool(solana_kit=solana_kit),
+        SolanaHeliusGetParsedTransactionsTool(solana_kit=solana_kit),
+        SolanaHeliusGetParsedTransactionHistoryTool(solana_kit=solana_kit),
+        SolanaHeliusCreateWebhookTool(solana_kit=solana_kit),
+        SolanaHeliusGetAllWebhooksTool(solana_kit=solana_kit),
+        SolanaHeliusGetWebhookTool(solana_kit=solana_kit),
+        SolanaHeliusEditWebhookTool(solana_kit=solana_kit),
+        SolanaHeliusDeleteWebhookTool(solana_kit=solana_kit),
+        SolanaFetchTokenReportSummaryTool(solana_kit=solana_kit),
+        SolanaFetchTokenDetailedReportTool(solana_kit=solana_kit)
     ]
 
