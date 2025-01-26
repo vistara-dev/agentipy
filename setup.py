@@ -17,7 +17,6 @@ setup(
     install_requires=[
         "requests==2.32.3",
         "python-dotenv==1.0.1",
-        "numpy==1.22.4,<2",
         "base58>=2.1.1",
         "aiohttp>=3.11.10",
         "pillow>=11.0.0",
